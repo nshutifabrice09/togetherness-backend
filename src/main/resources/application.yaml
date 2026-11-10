@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: togetherness-api
+
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/togetherness}
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:9042}
