@@ -1,2 +1,5 @@
- .env
- .nodemodules
+   target/
+   .git/
+   .idea/
+   .env
+   *.md

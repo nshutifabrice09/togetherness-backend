@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/togethernessdb
+    username: postgres
+    password: 9042
+  data:
+    redis:
+      url: redis://:together@localhost:6379
+
+app:
+  url: http://localhost:4000
+  web-url: http://localhost:3000
+  cors-origins: http://localhost:3000
+  jwt:
+    access-secret: dev-only-access-secret-change-me-0123456789abcdef
+    access-ttl: 15m
+    refresh-secret: dev-only-refresh-secret-change-me-0123456789abcdef
+    refresh-ttl: 30d
+  security:
+    argon-secret: dev-only-argon-secret-change-me-0123456789abcdef
+  storage:
+    endpoint: http://localhost:9000
+    bucket: togetherness-documents
+    access-key: minioadmin
+    secret-key: minioadmin123
+    region: rw-kigali
+  clamav:
+    host: localhost
+    port: 3310
+  council:
+    rhcc-verify-url: https://healthregulation.moh.gov.rw/verify-certificate

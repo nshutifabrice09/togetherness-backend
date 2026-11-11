@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: togetherness-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 9042
+      POSTGRES_DB: togethernessdb
+    ports: ["5433:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U together -d togetherness"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: togetherness-redis
+    command: ["redis-server", "--requirepass", "together"]
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "together", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio
+    container_name: togetherness-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    ports: ["9000:9000", "9001:9001"]
+    volumes: [miniodata:/data]
+
+  clamav:
+    image: clamav/clamav:stable
+    container_name: togetherness-clamav
+    ports: ["3310:3310"]
+    # first start downloads virus definitions and takes a couple of minutes
+
+volumes:
+  pgdata:
+  miniodata:

@@ -1,8 +1,44 @@
+server:
+  port: ${SERVER_PORT:4000}
+  servlet:
+    context-path: /api
+
 spring:
   application:
     name: togetherness-api
-
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/togetherness}
-    username: ${DB_USER:root}
-    password: ${DB_PASSWORD:9042}
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+  data:
+    redis:
+      url: ${REDIS_URL}
+
+app:
+  url: ${APP_URL}
+  web-url: ${WEB_URL}
+  cors-origins: ${CORS_ORIGINS}
+  jwt:
+    access-secret: ${JWT_ACCESS_SECRET}
+    access-ttl: ${JWT_ACCESS_TTL:15m}
+    refresh-secret: ${JWT_REFRESH_SECRET}
+    refresh-ttl: ${JWT_REFRESH_TTL:30d}
+  security:
+    argon-secret: ${ARGON_SECRET}
+  storage:
+    endpoint: ${S3_ENDPOINT}
+    bucket: ${S3_BUCKET}
+    access-key: ${S3_ACCESS_KEY}
+    secret-key: ${S3_SECRET_KEY}
+    region: ${S3_REGION:rw-kigali}
+  clamav:
+    host: ${CLAMAV_HOST}
+    port: ${CLAMAV_PORT:3310}
+  council:
+    rhcc-verify-url: ${RHCC_VERIFY_URL}
